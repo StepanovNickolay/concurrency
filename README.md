@@ -8,3 +8,5 @@
      - Infinite buffer (pseudo)
      - Finite buffer (pseudo)
 5. Readers/Writers problem (pseudo)
+
+https://github.com/ITMO-MPP?utf8=%E2%9C%93&q=&type=public&language=
