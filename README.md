@@ -1,3 +1,12 @@
+# Concurrency
+
+### Data structures
+
+Stack (StackLockFree.kt) :
+- Lock-free Trieber stack impl (https://en.wikipedia.org/wiki/Treiber_stack)
+- Lock-free stack with elimination impl (https://people.csail.mit.edu/shanir/publications/Lock_Free.pdf)
+
+### Problems
 
 1. Dining Philosophers problem
      - Semaphore solution (runnable)
@@ -8,5 +17,3 @@
      - Infinite buffer (pseudo)
      - Finite buffer (pseudo)
 5. Readers/Writers problem (pseudo)
-
-https://github.com/ITMO-MPP?utf8=%E2%9C%93&q=&type=public&language=
