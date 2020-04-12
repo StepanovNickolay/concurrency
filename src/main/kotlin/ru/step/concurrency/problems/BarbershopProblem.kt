@@ -1,8 +1,7 @@
-package ru.step.concurrency
+package ru.step.concurrency.problems
 
 import java.util.*
 import java.util.concurrent.CompletableFuture
-import java.util.concurrent.Exchanger
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger

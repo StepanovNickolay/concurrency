@@ -1,10 +1,8 @@
-package ru.step.concurrency
+package ru.step.concurrency.problems
 
 import java.util.*
 import java.util.concurrent.CyclicBarrier
 import java.util.concurrent.Semaphore
-import java.util.concurrent.atomic.AtomicInteger
-import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.thread
 
 /**

@@ -1,4 +1,4 @@
-package ru.step.concurrency
+package ru.step.concurrency.problems
 
 import java.util.concurrent.CyclicBarrier
 import java.util.concurrent.Semaphore
