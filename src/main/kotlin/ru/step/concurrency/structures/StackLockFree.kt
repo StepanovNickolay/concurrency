@@ -49,13 +49,9 @@ class StackBasicImpl<T> : Stack<T> {
             ?: throw EmptyStackException()
 
     override fun pop(): T {
-        return if (top == null) {
-            throw EmptyStackException()
-        } else {
-            val value = top!!.value
-            top = top!!.next
-            value
-        }
+        val value = top?.value ?: throw EmptyStackException()
+        top = top?.next ?: throw EmptyStackException()
+        return value
     }
 }
 
