@@ -8,8 +8,7 @@ import java.util.concurrent.atomic.AtomicReference
  */
 class StackTrieber<T> : Stack<T> {
     private val top: AtomicReference<Node<T>?> = AtomicReference(null)
-
-    private inner class Node<T>(val value: T, var next: Node<T>? = null)
+    private class Node<T>(val value: T, var next: Node<T>? = null)
 
     override fun push(value: T) {
         val newNode = Node(value, top.get())

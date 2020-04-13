@@ -19,9 +19,7 @@ class StackElimination<T> : Stack<T> {
     }
 
     private val top: AtomicReference<Node<T>?> = AtomicReference(null)
-
-    private inner class Node<T>(val value: T, var next: Node<T>? = null)
-
+    private class Node<T>(val value: T, var next: Node<T>? = null)
     private val eliminationArray: AtomicReferenceArray<Cell<T>> = AtomicReferenceArray(MAX_THREADS)
 
     override fun push(value: T) {

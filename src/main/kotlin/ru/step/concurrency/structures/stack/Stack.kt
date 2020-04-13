@@ -31,8 +31,7 @@ interface Stack<T> {
 
 class StackBasicImpl<T> : Stack<T> {
     private var top: Node<T>? = null
-
-    private inner class Node<T>(val value: T, var next: Node<T>? = null)
+    private class Node<T>(val value: T, var next: Node<T>? = null)
 
     override fun push(value: T) {
         val newTop = Node(value, top)
