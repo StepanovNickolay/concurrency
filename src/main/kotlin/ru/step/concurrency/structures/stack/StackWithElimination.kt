@@ -1,86 +1,11 @@
-package ru.step.concurrency.structures
+package ru.step.concurrency.structures.stack
 
-import ru.step.concurrency.structures.StackElimination.Operation.POP
-import ru.step.concurrency.structures.StackElimination.Operation.PUSH
+import ru.step.concurrency.structures.stack.StackElimination.Operation.*
 import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
 import java.util.concurrent.atomic.AtomicReferenceArray
-
-interface Stack<T> {
-    /**
-     * Pushes an item onto the top of this stack.
-     *
-     * @param value item to push
-     */
-    fun push(value: T)
-
-    /**
-     * Looks at the object at the top of this stack without removing it
-     * from the stack.
-     *
-     * @return object from top of the stack
-     * @throws EmptyStackException if this stack is empty.
-     */
-    fun peek(): T
-
-    /**
-     * Removes the object at the top of this stack and returns that
-     * object as the value of this function.
-     *
-     * @return object from top of the stack
-     * @throws EmptyStackException if this stack is empty.
-     */
-    fun pop(): T
-}
-
-class StackBasicImpl<T> : Stack<T> {
-    private var top: Node<T>? = null
-
-    private inner class Node<T>(val value: T, var next: Node<T>? = null)
-
-    override fun push(value: T) {
-        val newTop = Node(value, top)
-        top = newTop
-    }
-
-    override fun peek(): T = top?.value
-            ?: throw EmptyStackException()
-
-    override fun pop(): T {
-        val value = top?.value ?: throw EmptyStackException()
-        top = top?.next ?: throw EmptyStackException()
-        return value
-    }
-}
-
-/**
- * Lock-free Trieber stack based on Atomic reference
- */
-class StackTrieber<T> : Stack<T> {
-    private val top: AtomicReference<Node<T>?> = AtomicReference(null)
-
-    private inner class Node<T>(val value: T, var next: Node<T>? = null)
-
-    override fun push(value: T) {
-        val newNode = Node(value, top.get())
-        while (true) {
-            if (top.compareAndSet(top.get(), newNode)) return
-        }
-    }
-
-    override fun peek(): T = top.get()?.value
-            ?: throw EmptyStackException()
-
-    override fun pop(): T {
-        while (true) {
-            val currentTop = top.get() ?: throw EmptyStackException()
-            val topNext = currentTop.next
-            if (top.compareAndSet(currentTop, topNext)) return currentTop.value
-        }
-    }
-}
 
 /**
  * Lock-free stack with elimination impl

@@ -2,6 +2,9 @@ package ru.step.concurrency.structures
 
 import org.junit.Assert.*
 import org.junit.Test
+import ru.step.concurrency.structures.stack.StackBasicImpl
+import ru.step.concurrency.structures.stack.StackElimination
+import ru.step.concurrency.structures.stack.StackTrieber
 import java.util.*
 import java.util.Stack
 
@@ -21,7 +24,7 @@ class StackLockFreeTest {
         stackTest(StackElimination())
     }
 
-    private fun stackTest(stackImpl: ru.step.concurrency.structures.Stack<Int>) {
+    private fun stackTest(stackImpl: ru.step.concurrency.structures.stack.Stack<Int>) {
         val random = Random(0)
         val javaStack = Stack<Int>()
         for (i in 0..999999) {
