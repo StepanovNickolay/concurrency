@@ -1,14 +1,11 @@
-package ru.step.concurrency.structures
+package ru.step.concurrency.structures.stack
 
 import org.junit.Assert.*
 import org.junit.Test
-import ru.step.concurrency.structures.stack.StackBasicImpl
-import ru.step.concurrency.structures.stack.StackElimination
-import ru.step.concurrency.structures.stack.StackTrieber
 import java.util.*
 import java.util.Stack
 
-class StackLockFreeTest {
+class StackFunctionalTests {
     @Test
     fun `functional test StackBasicImpl`() {
         stackTest(StackBasicImpl())
