@@ -11,6 +11,9 @@ class FunctionalTests {
         setTest(SetBasicImpl())
     }
 
+    /**
+     * TODO: fix it
+     */
     @Test
     fun `functional test LinkedSetLockFree`() {
         setTest(LinkedSetLockFree())
