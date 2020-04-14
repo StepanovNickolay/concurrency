@@ -2,9 +2,12 @@
 
 ### Data structures
 
-Stack (impl, functional tests):
-- Lock-free Trieber stack impl (https://en.wikipedia.org/wiki/Treiber_stack)
-- Lock-free stack with elimination impl (https://people.csail.mit.edu/shanir/publications/Lock_Free.pdf)
+1. Stack (impl, functional tests):
+    - Lock-free Trieber stack impl (https://en.wikipedia.org/wiki/Treiber_stack)
+    - Lock-free stack with elimination impl (https://people.csail.mit.edu/shanir/publications/Lock_Free.pdf)
+2. LinkedSet (impl, functional tests)
+    - Lock-free based on AtomicMarkableReference 
+
 
 ### Problems
 
