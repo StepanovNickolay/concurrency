@@ -1,6 +1,7 @@
 package ru.step.concurrency.structures.linked_set
 
 import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Test
 import java.util.*
 import kotlin.collections.LinkedHashSet
@@ -26,12 +27,18 @@ class FunctionalTests {
             val op = random.nextInt(3)
             val x = random.nextInt(30)
             when (op) {
-                0 ->                 // add
-                    Assert.assertEquals(javaSet.add(x), set.add(x))
-                1 ->                 // contains
-                    Assert.assertEquals(javaSet.contains(x), set.contains(x))
-                2 ->                 // remove
-                    Assert.assertEquals(javaSet.remove(x), set.remove(x))
+                0 -> {
+                    println("push")
+                    assertEquals(javaSet.add(x), set.add(x))
+                }
+                1 ->  {
+                    println("contains")
+                    assertEquals(javaSet.contains(x), set.contains(x))
+                }
+                2 -> {
+                    println("contains")
+                    assertEquals(javaSet.remove(x), set.remove(x))
+                }
             }
         }
     }

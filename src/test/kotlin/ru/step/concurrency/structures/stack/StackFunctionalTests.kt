@@ -13,7 +13,7 @@ class StackFunctionalTests {
 
     @Test
     fun `functional test StackTrieber`() {
-        stackTest(StackTrieber())
+        stackTest(StackTreiber())
     }
 
     @Test
@@ -26,12 +26,14 @@ class StackFunctionalTests {
         val javaStack = Stack<Int>()
         for (i in 0..999999) {
             when (random.nextInt(2)) {
-                0 -> { // push
+                0 -> {
+                    println("push")
                     val x: Int = random.nextInt()
                     javaStack.push(x)
                     stackImpl.push(x)
                 }
-                1 -> { //pop
+                1 -> {
+                    println("pop")
                     if (!javaStack.isEmpty()) {
                         assertEquals(javaStack.pop() as Int, stackImpl.pop())
                     } else {
