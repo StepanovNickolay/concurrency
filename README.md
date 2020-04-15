@@ -2,25 +2,27 @@
 
 ### Data structures
 
-1. Stack (impl, functional tests):
+- Queue (impl, functional tests):
+    - Michael-scott lock-free queue impl (https://www.cs.rochester.edu/~scott/papers/1996_PODC_queues.pdf)
+- Stack (impl, functional tests):
     - Lock-free Treiber stack impl (https://en.wikipedia.org/wiki/Treiber_stack)
     - Lock-free stack with elimination impl (https://people.csail.mit.edu/shanir/publications/Lock_Free.pdf)
-2. LinkedSet (impl, functional tests)
+- LinkedSet (impl, functional tests):
     - Lock-free based on AtomicMarkableReference 
 
 
 ### Problems
 
-1. Dining Philosophers problem
+- Dining Philosophers problem
      - Semaphore solution (runnable)
      - Tanenbaum solution (runnable)
-2. Barbershop problem (runnable)
-3. H2O problem (pseudo)
-4. Producer/Consumer problem
+- Barbershop problem (runnable)
+- H2O problem (pseudo)
+- Producer/Consumer problem
      - Infinite buffer (pseudo)
      - Finite buffer (pseudo)
-5. Readers/Writers problem (pseudo)
-6. Concurrent Bank (impl, benchmarks, functional tests)
+- Readers/Writers problem (pseudo)
+- Concurrent Bank (impl, benchmarks, functional tests)
      - Synchronized based
      - Fine-grained lock based
 
