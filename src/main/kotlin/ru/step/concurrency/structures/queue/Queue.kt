@@ -39,7 +39,7 @@ class QueueBasicImpl : Queue {
         tail = newNode
     }
 
-    override fun dequeue(): Int = if (head == tail) {
+    override fun dequeue(): Int = if (head === tail) {
         Int.MIN_VALUE
     } else {
         val next = head.next
@@ -52,13 +52,8 @@ class QueueBasicImpl : Queue {
         next.x
     }
 
-    override fun peek(): Int = if (head == tail) {
-        Integer.MIN_VALUE
-    } else {
-        try {
-            head.next!!.x
-        } catch (ex: Exception) {
-            throw ex
-        }
-    }
+    override fun peek(): Int = if (head === tail) {
+        Int.MIN_VALUE
+    } else head.next!!.x
+
 }
