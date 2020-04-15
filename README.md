@@ -8,7 +8,7 @@
     - Lock-free Treiber stack impl (https://en.wikipedia.org/wiki/Treiber_stack)
     - Lock-free stack with elimination impl (https://people.csail.mit.edu/shanir/publications/Lock_Free.pdf)
 - LinkedSet (impl, functional tests):
-    - Lock-free based on AtomicMarkableReference 
+    - Lock-free linked set based on AtomicMarkableReference 
 
 
 ### Problems
