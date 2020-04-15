@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicReference
 /**
  * Lock-free Trieber stack based on Atomic reference
  */
-class StackTrieber<T> : Stack<T> {
+class StackTreiber<T> : Stack<T> {
     private val top: AtomicReference<Node<T>?> = AtomicReference(null)
     private class Node<T>(val value: T, var next: Node<T>? = null)
 
