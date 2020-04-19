@@ -1,25 +1,46 @@
 package ru.step.concurrency.problems.bank;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
-/**
- * Functional single-threaded test-suite for bank implementation.
- *
- * @author Roman Elizarov
- */
-public class FunctionalTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+
+public class FunctionalTest {
     private static final int N = 10;
 
-    private final Bank bank = new SynchronizedBank(N);
+    @Test
+    public void functional_test_synchronized_bank() {
+        testBank(SynchronizedBank.class);
+    }
 
-    public void testEmptyBank() {
+    @Test
+    public void functional_test_fine_grained_bank() {
+        testBank(FineGrainedBank.class);
+    }
+
+    /**
+     * TODO: fix it
+     */
+    @Test
+    public void functional_test_lock_free_bank() {
+        testBank(LockFreeBankRDCSS.class);
+    }
+
+    private <T extends Bank> void testBank(Class<T> bankImpl) {
+        testEmptyBank(createInstance(bankImpl));
+        testDeposit(createInstance(bankImpl));
+        testWithdraw(createInstance(bankImpl));
+        testTotalAmount(createInstance(bankImpl));
+        testTransfer(createInstance(bankImpl));
+    }
+
+    private void testEmptyBank(Bank bank) {
         assertEquals(N, bank.getNumberOfAccounts());
         assertEquals(0, bank.getTotalAmount());
         for (int i = 0; i < N; i++)
             assertEquals(0, bank.getAmount(i));
     }
 
-    public void testDeposit() {
+    private void testDeposit(Bank bank) {
         long amount = 1234;
         long result = bank.deposit(1, amount);
         assertEquals(amount, result);
@@ -27,7 +48,7 @@ public class FunctionalTest extends TestCase {
         assertEquals(amount, bank.getTotalAmount());
     }
 
-    public void testWithdraw() {
+    private void testWithdraw(Bank bank) {
         int depositAmount = 2345;
         long depositResult = bank.deposit(1, depositAmount);
         assertEquals(depositAmount, depositResult);
@@ -40,7 +61,7 @@ public class FunctionalTest extends TestCase {
         assertEquals(depositAmount - withdrawAmount, bank.getTotalAmount());
     }
 
-    public void testTotalAmount() {
+    private void testTotalAmount(Bank bank) {
         long deposit1 = 4567;
         long depositResult1 = bank.deposit(1, deposit1);
         assertEquals(deposit1, depositResult1);
@@ -52,7 +73,7 @@ public class FunctionalTest extends TestCase {
         assertEquals(deposit1 + deposit2, bank.getTotalAmount());
     }
 
-    public void testTransfer() {
+    private void testTransfer(Bank bank) {
         int depositAmount = 9876;
         long depositResult = bank.deposit(1, depositAmount);
         assertEquals(depositAmount, depositResult);
@@ -63,5 +84,14 @@ public class FunctionalTest extends TestCase {
         assertEquals(depositAmount - transferAmount, bank.getAmount(1));
         assertEquals(transferAmount, bank.getAmount(2));
         assertEquals(depositAmount, bank.getTotalAmount());
+    }
+
+    private <T extends Bank> T createInstance(Class<T> bankImpl) {
+        try {
+            return (T) bankImpl.getConstructors()[0].newInstance(N);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
