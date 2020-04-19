@@ -1,8 +1,4 @@
 language: java
-os:
-  - linux
-services:
-  - docker
 jdk:
   - openjdk11
 
@@ -13,5 +9,3 @@ cache:
 branches:
   only:
     - master
-
-script: mvn install -DskipTests=true
