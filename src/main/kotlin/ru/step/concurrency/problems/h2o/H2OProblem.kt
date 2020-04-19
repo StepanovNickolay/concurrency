@@ -1,4 +1,4 @@
-package ru.step.concurrency.problems
+package ru.step.concurrency.problems.h2o
 
 import java.util.*
 import java.util.concurrent.CyclicBarrier

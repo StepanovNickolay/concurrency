@@ -1,4 +1,4 @@
-package ru.step.concurrency.problems
+package ru.step.concurrency.problems.barbershop
 
 import java.util.*
 import java.util.concurrent.CompletableFuture

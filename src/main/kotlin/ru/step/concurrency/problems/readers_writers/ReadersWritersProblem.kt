@@ -1,4 +1,4 @@
-package ru.step.concurrency.problems
+package ru.step.concurrency.problems.readers_writers
 
 import java.util.concurrent.Semaphore
 

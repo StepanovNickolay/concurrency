@@ -1,4 +1,4 @@
-package ru.step.concurrency.problems
+package ru.step.concurrency.problems.dining_philosophers
 
 import kotlinx.coroutines.*
 import java.util.concurrent.Semaphore

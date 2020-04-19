@@ -1,4 +1,4 @@
-package ru.step.concurrency.problems
+package ru.step.concurrency.problems.producer_consumer
 
 import java.util.concurrent.Semaphore
 
