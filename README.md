@@ -13,6 +13,10 @@
 
 ### Problems
 
+- Concurrent Bank (impl, benchmarks, functional tests)
+     - Synchronized based
+     - Fine-grained lock based
+     - Lock-free RDCSS based
 - Dining Philosophers problem
      - Semaphore solution (runnable)
      - Tanenbaum solution (runnable)
@@ -22,9 +26,6 @@
      - Infinite buffer (pseudo)
      - Finite buffer (pseudo)
 - Readers/Writers problem (pseudo)
-- Concurrent Bank (impl, benchmarks, functional tests)
-     - Synchronized based
-     - Fine-grained lock based
 
 ### Exercise sources & materials
 
