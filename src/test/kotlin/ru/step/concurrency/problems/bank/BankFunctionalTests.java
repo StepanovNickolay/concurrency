@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class FunctionalTest {
+public class BankFunctionalTests {
     private static final int N = 10;
 
     @Test
@@ -17,9 +17,6 @@ public class FunctionalTest {
         testBank(FineGrainedBank.class);
     }
 
-    /**
-     * TODO: fix it
-     */
     @Test
     public void functional_test_lock_free_bank() {
         testBank(LockFreeBankRDCSS.class);

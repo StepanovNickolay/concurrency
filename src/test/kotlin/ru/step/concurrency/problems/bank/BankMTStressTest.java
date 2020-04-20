@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * @author Roman Elizarov
  */
-public class MTStressTest extends TestCase {
+public class BankMTStressTest extends TestCase {
     private static final int N = 100;
     private static final long MEAN = 1_000_000_000;
     private static final int AMT = 1_000; // AMT << MEAN, so that probability of over/under flow is negligible
@@ -26,7 +26,7 @@ public class MTStressTest extends TestCase {
     private static final long PHASE_DURATION_MILLIS = 1000;
 
     private final Phaser phaser = new Phaser(1 + THREADS);
-    private final Bank bank = new FineGrainedBank(N);
+    private final Bank bank = new LockFreeBankRDCSS(N);
     private final AtomicLong[] expected = new AtomicLong[N];
     private final AtomicLong totalOps = new AtomicLong(); // only non-init phases are counted
     private volatile boolean failed;

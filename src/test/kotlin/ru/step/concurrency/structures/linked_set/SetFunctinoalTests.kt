@@ -1,12 +1,11 @@
 package ru.step.concurrency.structures.linked_set
 
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Test
 import java.util.*
 import kotlin.collections.LinkedHashSet
 
-class FunctionalTests {
+class SetFunctionalTests {
     @Test
     fun `functional test SetBasicImpl`() {
         setTest(SetBasicImpl())

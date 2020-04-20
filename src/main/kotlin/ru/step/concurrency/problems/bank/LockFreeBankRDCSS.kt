@@ -2,15 +2,15 @@ package ru.step.concurrency.problems.bank
 
 import ru.step.concurrency.problems.bank.Bank.Companion.MAX_AMOUNT
 import java.util.concurrent.atomic.AtomicReferenceArray
-import kotlin.math.max
-import kotlin.math.min
 
 class LockFreeBankRDCSS(
         private val accountsNumber: Int
 ) : Bank {
     private val accounts: AtomicReferenceArray<Account> = AtomicReferenceArray(accountsNumber)
 
-    init { for (i in 0 until accountsNumber) accounts[i] = Account() }
+    init {
+        for (i in 0 until accountsNumber) accounts[i] = Account()
+    }
 
     override fun getNumberOfAccounts(): Int = accountsNumber
 
@@ -84,11 +84,15 @@ class LockFreeBankRDCSS(
             index: Int,
             op: Op
     ): AcquiredAccount? {
-        if (op.completed) return null
-        val account = accounts[index]
-        val acquiredAccount = AcquiredAccount(account.amount, op)
-        accounts[index] = acquiredAccount
-        return acquiredAccount
+        while (true) {
+            val account = accounts[index]
+            if (op.completed) return null
+            if (account is AcquiredAccount && account.op === op) return account
+            if (!account.invokeOperation()) {
+                val acquiredAccount = AcquiredAccount(account.amount, op)
+                if (accounts.compareAndSet(index, account, acquiredAccount)) return acquiredAccount
+            }
+        }
     }
 
     private fun release(
@@ -104,7 +108,7 @@ class LockFreeBankRDCSS(
     }
 
 
-    private open class Account(var amount: Long = 0L) {
+    private open class Account(val amount: Long = 0L) {
         /**
          * Invokes operation that is pending on this account.
          * This implementation returns false (no pending operation), other implementations return true.
@@ -132,7 +136,8 @@ class LockFreeBankRDCSS(
         /**
          * True when operation has completed.
          */
-        @Volatile var completed = false
+        @Volatile
+        var completed = false
 
         abstract fun invokeOperation()
     }
@@ -146,12 +151,12 @@ class LockFreeBankRDCSS(
         override fun invokeOperation() {
             var sum = 0L
             var acquired = 0
-            while (acquired < getNumberOfAccounts()) {
+            while (acquired < accountsNumber) {
                 val account = acquire(acquired, this) ?: break
                 sum += account.newAmount
                 acquired++
             }
-            if (acquired == getNumberOfAccounts()) {
+            if (acquired == accountsNumber) {
                 this.sum = sum
                 completed = true
             }
@@ -179,22 +184,24 @@ class LockFreeBankRDCSS(
         override fun invokeOperation() {
             assert(amount > 0) { "Amount must be > 0" }
             assert(fromIndex != toIndex) { "fromIndex == toIndex" }
-            val minIndex = min(fromIndex, toIndex)
-            val maxIndex = max(fromIndex, toIndex)
-            var acquired = 0
-            while (acquired != 2) {
-                acquire(minIndex, this)?.let { acquired++ } ?: break
-                acquire(maxIndex, this)?.let { acquired++ }
+
+            acquire(fromIndex.coerceAtMost(toIndex), this)
+            val from = acquire(fromIndex, this)
+            val to = acquire(toIndex, this)
+
+            if (from != null && to != null) {
+                when {
+                    amount > from.amount -> errorMessage = "Underflow"
+                    to.amount + amount > MAX_AMOUNT -> errorMessage = "Overflow"
+                    else -> {
+                        from.newAmount = from.amount - amount
+                        to.newAmount = to.amount + amount
+                    }
+                }
             }
-            if (acquired == 2) {
-                require(accounts[minIndex].amount >= amount) { "Underflow" }
-                require(accounts[maxIndex].amount + amount <= MAX_AMOUNT) { "Underflow" }
-                accounts[minIndex].amount -= amount
-                accounts[maxIndex].amount += amount
-                completed = true
-            }
-            release(maxIndex, this)
-            release(minIndex, this)
+            completed = true
+            release(toIndex, this)
+            release(fromIndex, this)
         }
     }
 }
